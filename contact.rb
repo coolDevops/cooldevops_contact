@@ -7,31 +7,23 @@ require 'json'
 class Contact < Sinatra::Base
 
   before do
-    logger.debug "START LOGGING"
     response.headers["Access-Control-Allow-Origin"] = "*"
     response.headers["Access-Control-Allow-Methods"] = "POST"
-    logger.debug response.headers.inspect
   end
 
   # Load the configuration file for the mailserver settings
   conf = YAML.load_file('configuration.yml')
 
-  post '/contact/' do
+  post '/' do
     content_type :json
 
-    logger.debug params.inspect
-
     if params[:email].empty?
-      response[:status] = "error"
-      response[:message] = "No email"
-      response.to_json
+      {:status => "error", :message => "No email"}.to_json
     elsif params[:mailbody].empty?
-      response[:status] = "error"
-      response[:message] = "No message?"
-      response.to_json
-    elsif 
+      {:status => "error", :message => "No Message"}.to_json
+    else
       
-    	Pony.mail(
+      Pony.mail(
           :from => params[:email] + "<" + params[:email] + ">",
           :to => 'geert.theys@gmail.com',
           :subject => params[:email] + " has contacted you",
@@ -45,14 +37,7 @@ class Contact < Sinatra::Base
             :enable_starttls_auto => true, 
             :authentication       => :plain
           })
-        response[:status] = "success"
-        response[:message] = "Email sent. We will contact you as soon as possible"
-        
-        logger.debug response.inspect
-
-        response.to_json
-
-      end
-
+        {:status => "succes", :message => "Email sent. We will contact you as soon as possible"}.to_json        
+    end
   end
 end

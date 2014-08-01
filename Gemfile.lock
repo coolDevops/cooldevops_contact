@@ -8,6 +8,9 @@ GEM
     pony (1.9)
       mail (>= 2.0)
     rack (1.5.2)
+    rack-contrib (1.1.0)
+      rack (>= 0.9.1)
+    rack-cors (0.2.9)
     rack-protection (1.5.3)
       rack
     sinatra (1.4.5)
@@ -23,5 +26,7 @@ PLATFORMS
 DEPENDENCIES
   json
   pony
+  rack-contrib
+  rack-cors
   sinatra
   sinatra-cross_origin
