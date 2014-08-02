@@ -24,7 +24,7 @@ class Contact < Sinatra::Base
     else
       Pony.mail(
           :from => params[:email] + "<" + params[:email] + ">",
-          :to => 'geert.theys@gmail.com',
+          :to => 'geert@cooldevops.com',
           :subject => params[:email] + " has contacted you",
           :body => params[:mailbody],
           :via => :smtp,
