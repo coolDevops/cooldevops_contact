@@ -22,7 +22,6 @@ class Contact < Sinatra::Base
     elsif params[:mailbody].empty?
       {:status => "error", :message => "No Message"}.to_json
     else
-      
       Pony.mail(
           :from => params[:email] + "<" + params[:email] + ">",
           :to => 'geert.theys@gmail.com',
@@ -35,8 +34,10 @@ class Contact < Sinatra::Base
             :user_name            => conf ['user_name'],
             :password             => conf ['password'],
             :enable_starttls_auto => true, 
-            :authentication       => :plain
+            :authentication       => :plain,
+            :domain               => "cooldevops.com" 
           })
+
         {:status => "succes", :message => "Email sent. We will contact you as soon as possible"}.to_json        
     end
   end
